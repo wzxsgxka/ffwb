@@ -1,0 +1,226 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease-in-out;
+}
+.active-menu {
+    background-color: #3B82F6;
+}
+.active-submenu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 20px;
+    background-color: #3B82F6;
+}
+@keyframes scroll-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+}
+.animate-scroll-up {
+    animation: scroll-up 30s linear infinite;
+}
+/* 3D轮播图样式 */
+#slider {
+    position: relative;
+    width: 100%;
+    height: 32vw;
+    margin: 0 auto;
+    font-family: 'Helvetica Neue', sans-serif;
+    perspective: 1400px;
+    transform-style: preserve-3d;
+}
+
+/* 隐藏默认radio按钮，自定义小圆点 */
+#slider input[type=radio] {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    margin: 0 8px;
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 10;
+    appearance: none;
+    background: #ccc;
+    border-radius: 50%;
+}
+
+#slider input[type=radio]:checked {
+    background: #3B82F6;
+    opacity: 1;
+}
+
+#slider input[type=radio]:nth-child(1) { margin-left: -40px; }
+#slider input[type=radio]:nth-child(2) { margin-left: -20px; }
+#slider input[type=radio]:nth-child(3) { margin-left: 0; }
+#slider input[type=radio]:nth-child(4) { margin-left: 20px; }
+#slider input[type=radio]:nth-child(5) { margin-left: 40px; }
+
+/* 轮播图标签 */
+#slider label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    transform-origin: center center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+#slider label img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* 默认所有图片位置（左右两侧） */
+#slider label {
+    transform: translateX(-40%) scale(0.7);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+/* 根据radio选中状态调整图片位置 */
+#slider input#s1:checked ~ label[for="s1"],
+#slider input#s2:checked ~ label[for="s2"],
+#slider input#s3:checked ~ label[for="s3"],
+#slider input#s4:checked ~ label[for="s4"],
+#slider input#s5:checked ~ label[for="s5"] {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 3;
+}
+
+/* 相邻图片 */
+#slider input#s1:checked ~ label[for="s2"],
+#slider input#s2:checked ~ label[for="s3"],
+#slider input#s3:checked ~ label[for="s4"],
+#slider input#s4:checked ~ label[for="s5"],
+#slider input#s5:checked ~ label[for="s1"] {
+    transform: translateX(30%) scale(0.8);
+    opacity: 0.7;
+    z-index: 2;
+}
+
+#slider input#s1:checked ~ label[for="s5"],
+#slider input#s2:checked ~ label[for="s1"],
+#slider input#s3:checked ~ label[for="s2"],
+#slider input#s4:checked ~ label[for="s3"],
+#slider input#s5:checked ~ label[for="s4"] {
+    transform: translateX(-30%) scale(0.8);
+    opacity: 0.7;
+    z-index: 2;
+}
+
+/* 更远的图片 */
+#slider input#s1:checked ~ label[for="s3"],
+#slider input#s2:checked ~ label[for="s4"],
+#slider input#s3:checked ~ label[for="s5"],
+#slider input#s4:checked ~ label[for="s1"],
+#slider input#s5:checked ~ label[for="s2"] {
+    transform: translateX(60%) scale(0.6);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+#slider input#s1:checked ~ label[for="s4"],
+#slider input#s2:checked ~ label[for="s5"],
+#slider input#s3:checked ~ label[for="s1"],
+#slider input#s4:checked ~ label[for="s2"],
+#slider input#s5:checked ~ label[for="s3"] {
+    transform: translateX(-60%) scale(0.6);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* 悬停效果 */
+#slider:hover label {
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+.badge-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Floating Announcements */
+#floating-announcements {
+    position: absolute;
+    top: 12rem; /* Adjust based on title position */
+    right: 8%; /* Adjust to be to the right of the main title */
+    width: 300px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    z-index: 20;
+}
+
+#floating-announcements h3 {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+#announcement-list-container {
+    height: 150px; /* Adjust height to show a few items */
+    overflow: hidden;
+    position: relative;
+}
+
+#announcement-list {
+    position: absolute;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#announcement-list li {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+}
+
+/* Notification Popup */
+#notification-popup {
+    width: 320px; /* Adjust width */
+    height: 280px; /* Adjust height to be more square-like */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#notification-popup h3 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#notification-popup p {
+    font-size: 1rem; /* Increase content font size */
+    line-height: 1.6; /* Adjust line height for readability */
+    text-align: center;
+}
